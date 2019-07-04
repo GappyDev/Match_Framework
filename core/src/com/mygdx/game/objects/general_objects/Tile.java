@@ -1,4 +1,9 @@
 package com.mygdx.game.objects.general_objects;
 
-public class Tile {
+import com.mygdx.game.objects.GameObject;
+
+public class Tile extends GameObject
+{
+
+
 }

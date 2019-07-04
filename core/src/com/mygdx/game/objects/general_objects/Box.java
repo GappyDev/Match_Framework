@@ -1,4 +1,7 @@
 package com.mygdx.game.objects.general_objects;
 
-public class Box {
+import com.mygdx.game.objects.GameObject;
+
+public class Box extends GameObject
+{
 }
