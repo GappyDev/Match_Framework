@@ -3,16 +3,18 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Factories.Factory;
+import com.mygdx.game.factories.Zuma_Factory;
 
-public class Zuma<E extends Factory> extends MyGame<E>
+public class Zuma extends MyGame<Zuma_Factory>
 {
 	SpriteBatch batch;
+
 
 	@Override
 	public void create ()
 	{
 		batch = new SpriteBatch();
+		factory = new Zuma_Factory();
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package com.mygdx.game.Factories;
+package com.mygdx.game.factories;
 
 public abstract class Factory<T>
 {
