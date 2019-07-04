@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Zuma extends ApplicationAdapter {
+public class Zuma extends MyGame {
 	SpriteBatch batch;
 	Texture img;
 	
