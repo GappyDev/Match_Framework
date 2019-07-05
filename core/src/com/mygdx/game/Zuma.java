@@ -8,6 +8,10 @@ import com.mygdx.game.factories.Zuma_Factory;
 import com.mygdx.game.movement.IdleMovement;
 import com.mygdx.game.movement.LinearMovement;
 import com.mygdx.game.objects.GameObject;
+import com.mygdx.game.objects.general_objects.Box;
+import com.mygdx.game.objects.general_objects.LinearBox;
+
+import java.util.ArrayList;
 
 public class Zuma extends MyGame
 {
@@ -18,6 +22,7 @@ public class Zuma extends MyGame
 	//attributes
 	private SpriteBatch batch;
 	private GameObject cannon;
+	LinearBox c1,c2,c3;
 
 	//methods
 	@Override
@@ -31,6 +36,11 @@ public class Zuma extends MyGame
 		Texture cannon_texture = new Texture("badlogic.jpg");//temp texture
 		cannon = factory.createCannon(cannon_texture,width/2 -cannon_texture.getWidth()/2 ,0, new IdleMovement());
 
+		//boxes temp attributes temp
+		c3 = factory.createLinearBox(new LinearMovement(),null,null,cannon_texture,5,0,600.5f);
+		c2 = factory.createLinearBox(new LinearMovement(),null,null,cannon_texture,5,-2,600.5f);
+		c1 =factory.createLinearBox(new LinearMovement(),null,null,cannon_texture,5,-4,600.5f);
+
 	}
 
 	@Override
@@ -42,6 +52,14 @@ public class Zuma extends MyGame
 		float delta = Gdx.graphics.getDeltaTime();
 
 		cannon.draw(batch);
+		c1.draw(batch);
+		c2.draw(batch);
+		c3.draw(batch);
+		c1.movement.move(delta,c1);
+		c2.movement.move(delta,c2);
+		c3.movement.move(delta,c3);
+
+
 		cannon.movement.move(delta,cannon);
 
 	}

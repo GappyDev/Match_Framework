@@ -10,9 +10,6 @@ public  class Box<D> extends GameObject implements Destructable
     //Attributes
     Tile tile;
     Neighborhood neighborhood;
-    //Dimensions
-    private static final float Bwidth = 2.5f, Bheight = 2.5f;
-
 
     //methods
     public  Box getNeighboor(D direction)

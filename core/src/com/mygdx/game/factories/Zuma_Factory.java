@@ -9,11 +9,11 @@ import com.mygdx.game.objects.zuma_objects.Cannon;
 public class Zuma_Factory extends Factory
 {
 
-    public GameObject createLinearBox(Movement movement)
+    public LinearBox createLinearBox(Movement m, LinearBox r, LinearBox l, Texture tileTexture, int val, float x, float y)
     {
 
-       // return new LinearBox();
-        return null;
+       return new LinearBox(m,r,l,tileTexture,val,x,y);
+
     }
 
     public GameObject createCannon(Texture texture, float x, float y, Movement m)
