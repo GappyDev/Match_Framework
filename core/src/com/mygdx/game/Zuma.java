@@ -37,9 +37,11 @@ public class Zuma extends MyGame
 		cannon = factory.createCannon(cannon_texture,width/2 -cannon_texture.getWidth()/2 ,0, new IdleMovement());
 
 		//boxes temp attributes temp
-		c3 = factory.createLinearBox(new LinearMovement(),null,null,cannon_texture,5,0,600.5f);
-		c2 = factory.createLinearBox(new LinearMovement(),null,null,cannon_texture,5,-2,600.5f);
-		c1 =factory.createLinearBox(new LinearMovement(),null,null,cannon_texture,5,-4,600.5f);
+		c3 = factory.createLinearBox(new LinearMovement(),c2,null,cannon_texture,5,0,600.5f);
+		c2 = factory.createLinearBox(new LinearMovement(),c1,c3,cannon_texture,2,-150,600.5f);
+		c1 =factory.createLinearBox(new LinearMovement(),null,c2,cannon_texture,3,-300,600.5f);
+
+		System.out.println(c1.vleft+"vecino izq uno" + "\n" + c2.vright +"vecino derecho 2" +""+c2.vleft + "vecino izq 2");
 
 	}
 

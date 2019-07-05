@@ -13,8 +13,8 @@ public class LinearBox extends Box<LinearNeighboors>
 
 
     //attributes
-    Neighborhood<LinearNeighboors,LinearBox> vright;
-    Neighborhood<LinearNeighboors,LinearBox> vleft;
+    public Neighborhood<LinearNeighboors,LinearBox> vright;
+    public Neighborhood<LinearNeighboors,LinearBox> vleft;
 
     //constructor
     public LinearBox(Movement m, LinearBox r, LinearBox l, Texture tileTexture, int val, float x, float y)
