@@ -5,39 +5,32 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.movement.Movement;
 import com.mygdx.game.objects.GameObject;
-import com.mygdx.game.objects.general_objects.Box;
 
 
 public class Cannon extends GameObject
 {
    //attributes
-    private Box projectile; //add secondary shot later
     private Texture texture;
-
-
+    public Vector2 cannonTip;
     //constructor
 
-    public Cannon(Texture t, float x, float y, Movement m) //pixel units
+    public Cannon(Texture t,float widthT,float heightT,float pos_x, float pos_y, Movement m) //pixel units
     {
         this.texture = t;
+        this.height = heightT;
+        this.width = widthT;
         this.position = new Vector2();
-        this.position.x = x;
-        this.position.y = y;
+        this.position.x = pos_x;
+        this.position.y = pos_y;
         this.movement = m;
+        cannonTip = new Vector2(this.position.x, 250f);
     }
-
-
-    //reload
-    private void reload(){}
-
-    //shoot
-    private void shoot(GameObject projectile){}
 
     @Override
     public void draw(SpriteBatch batch)
     {
         batch.begin();
-        batch.draw(this.texture,this.position.x,this.position.y);
+        batch.draw(this.texture,this.position.x,this.position.y,this.width,this.height);
         batch.end();
     }
 
@@ -46,6 +39,5 @@ public class Cannon extends GameObject
     {
         texture.dispose();
     }
-
 
 }

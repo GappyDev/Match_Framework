@@ -1,6 +1,5 @@
 package com.mygdx.game.objects.general_objects;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.movement.LinearMovement;
@@ -10,31 +9,31 @@ import com.mygdx.game.objects.GameObject;
 public class LinearBox extends Box<LinearNeighboors>
 {
 
-
-
-    //attributes
-    public Neighborhood<LinearNeighboors,LinearBox> vright;
-    public Neighborhood<LinearNeighboors,LinearBox> vleft;
-
     //constructor
-    public LinearBox(Movement m, LinearBox r, LinearBox l, Texture tileTexture, int val, float x, float y)
+    public LinearBox(Movement m, LinearBox r, LinearBox l,Tile tile, float x, float y,float w, float h)
     {
 
-        this.movement = new LinearMovement();
+        this.movement = m;
         this.position = new Vector2();
+
         this.position.x = x;
         this.position.y = y;
-        this.tile = new Tile(tileTexture,val,this.position);
 
+        this.tile = tile;
+        this.tile.setPosition(this);
+
+        this.width = w; this.height = h;
 
         //Neighbors
-        vright = new Neighborhood<LinearNeighboors, LinearBox>();
-        vleft = new Neighborhood<LinearNeighboors, LinearBox>();
+        this.neighboors = new Neighborhood<LinearNeighboors, LinearBox>();
 
+    }
 
-      /*  vright.add(LinearNeighboors.Right,r);
-        vleft.add(LinearNeighboors.Left,l);*/
+    public void setNeighbors(LinearBox right, LinearBox left)
+    {
 
+        this.neighboors.add(LinearNeighboors.Right,right);
+        this.neighboors.add(LinearNeighboors.Left,left);
 
     }
 

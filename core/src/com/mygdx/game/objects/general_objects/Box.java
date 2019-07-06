@@ -9,19 +9,22 @@ public  class Box<D> extends GameObject implements Destructable
 
     //Attributes
     Tile tile;
-    Neighborhood neighborhood;
+    Neighborhood neighboors;
 
     //methods
     public  Box getNeighboor(D direction)
     {
 
-        return neighborhood.getBox(direction);
+        return neighboors.getBox(direction);
 
 
     }
 
     @Override
-    public void Destroy(GameObject object) { }
+    public void Destroy(GameObject object)
+    {
+        dispose();
+    }
 
     @Override
     public void draw(SpriteBatch batch)

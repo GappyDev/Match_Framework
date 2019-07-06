@@ -9,6 +9,7 @@ public abstract class GameObject
 
     public Movement movement;
     public Vector2 position;
+    public float width,height;
 
     public abstract void draw(SpriteBatch batch);
     public abstract void dispose();
