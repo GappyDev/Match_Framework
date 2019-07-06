@@ -1,8 +1,8 @@
 package com.mygdx.game.objects.general_objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.movement.LinearMovement;
 import com.mygdx.game.movement.Movement;
 import com.mygdx.game.objects.GameObject;
 
@@ -10,7 +10,7 @@ public class LinearBox extends Box<LinearNeighboors>
 {
 
     //constructor
-    public LinearBox(Movement m, LinearBox r, LinearBox l,Tile tile, float x, float y,float w, float h)
+    public LinearBox(Movement m, LinearBox r, LinearBox l, float x, float y,float w, float h)
     {
 
         this.movement = m;
@@ -19,13 +19,24 @@ public class LinearBox extends Box<LinearNeighboors>
         this.position.x = x;
         this.position.y = y;
 
-        this.tile = tile;
-        this.tile.setPosition(this);
-
         this.width = w; this.height = h;
 
         //Neighbors
         this.neighboors = new Neighborhood<LinearNeighboors, LinearBox>();
+
+        this.collider = new Rectangle(x,y,w,h);
+
+    }
+
+    public void setTilePositionToBoxPos()
+    {
+        this.tile.setPosition(this);
+    }
+
+    public void setBoxTile(Tile tile)
+    {
+
+        this.tile = tile;
 
     }
 
@@ -34,6 +45,13 @@ public class LinearBox extends Box<LinearNeighboors>
 
         this.neighboors.add(LinearNeighboors.Right,right);
         this.neighboors.add(LinearNeighboors.Left,left);
+
+    }
+
+    private void updateColliderPos()
+    {
+
+        this.collider.setPosition(this.position.x,this.position.y);
 
     }
 
@@ -48,6 +66,7 @@ public class LinearBox extends Box<LinearNeighboors>
     public void draw(SpriteBatch batch)
     {
         super.draw(batch);
+        updateColliderPos();
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.mygdx.game.objects.general_objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.objects.GameObject;
 import com.mygdx.game.Destructable;
 
@@ -14,11 +16,11 @@ public  class Box<D> extends GameObject implements Destructable
     //methods
     public  Box getNeighboor(D direction)
     {
-
         return neighboors.getBox(direction);
 
-
     }
+
+    public void setPosition(float x, float y){this.position = new Vector2(x,y);}
 
     @Override
     public void Destroy(GameObject object)

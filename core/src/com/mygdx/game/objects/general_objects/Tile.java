@@ -10,9 +10,8 @@ public class Tile<F> extends GameObject
     Texture texture;
     F value;
 
-    public Tile(Texture texture, F value,float w, float h)
+    public Tile(F value,float w, float h)
     {
-        this.texture = texture;
         this.value = value;
         this.width = w; this.height = h;
 
@@ -27,11 +26,18 @@ public class Tile<F> extends GameObject
         return value;
     }
 
+    //Setters
+
     public void setPosition(GameObject object)
     {
 
         this.position = object.position;
 
+    }
+
+    public void setTexture(Texture texture)
+    {
+        this.texture = texture;
     }
 
     @Override
