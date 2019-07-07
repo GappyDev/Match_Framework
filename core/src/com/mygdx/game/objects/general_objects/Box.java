@@ -10,12 +10,12 @@ public  class Box<D> extends GameObject implements Destructable
 
     //Attributes
     Tile tile;
-    Neighborhood neighboors;
+    Neighborhood neighbors;
 
     //methods
     public  Box getNeighboor(D direction)
     {
-        return neighboors.getBox(direction);
+        return neighbors.getBox(direction);
 
     }
 

@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.movement.Movement;
 import com.mygdx.game.objects.GameObject;
 
-public class LinearBox extends Box<LinearNeighboors>
+public class LinearBox extends Box<LinearNeighbors>
 {
 
     //bullet attributes
@@ -25,7 +25,7 @@ public class LinearBox extends Box<LinearNeighboors>
         this.width = w; this.height = h;
 
         //Neighbors
-        this.neighboors = new Neighborhood<LinearNeighboors, LinearBox>();
+        this.neighbors = new Neighborhood<LinearNeighbors, LinearBox>();
 
         this.collider = new Rectangle(x,y,w,h);
 
@@ -46,8 +46,8 @@ public class LinearBox extends Box<LinearNeighboors>
     public void setNeighbors(LinearBox right, LinearBox left)
     {
 
-        this.neighboors.add(LinearNeighboors.Right,right);
-        this.neighboors.add(LinearNeighboors.Left,left);
+        this.neighbors.add(LinearNeighbors.Right,right);
+        this.neighbors.add(LinearNeighbors.Left,left);
 
     }
 

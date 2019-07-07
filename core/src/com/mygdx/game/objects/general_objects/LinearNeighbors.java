@@ -1,10 +1,10 @@
 package com.mygdx.game.objects.general_objects;
 
-public enum LinearNeighboors
+public enum LinearNeighbors
 {
 
     Right,Left;
-    public LinearNeighboors getOpossite()
+    public LinearNeighbors getOpossite()
     {
 
         switch(this)
