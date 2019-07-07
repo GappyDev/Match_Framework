@@ -5,15 +5,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.factories.Zuma_Factory;
+import com.mygdx.game.movement.LinearMovement;
 import com.mygdx.game.movement.ProjectileMovement;
 import com.mygdx.game.objects.general_objects.LinearBox;
 import com.mygdx.game.objects.general_objects.Tile;
+import com.mygdx.game.objects.object_Interfaces.CollisionHandler;
 import com.mygdx.game.objects.zuma_objects.Cannon;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Zuma extends MyGame
+public class Zuma extends MyGame implements CollisionHandler
 {
 	//GAME DIMENSIONS
 	public static final int width = 400;
@@ -91,7 +93,7 @@ public class Zuma extends MyGame
 		Gdx.gl.glClearColor(0, 0, 1, 0.5f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		float delta = Gdx.graphics.getDeltaTime();
-
+		handleCollision(); //handle collision between bullets and boxes
 
 		//draw
 
@@ -99,7 +101,6 @@ public class Zuma extends MyGame
 		if(clock <= 0) //changes the tile to shoot and display over time
 		{
 			tileDisplay = getBulletTile();
-			System.out.println("change");
 			clock = clockIni;
 		}else clock -= delta;
 
@@ -136,9 +137,36 @@ public class Zuma extends MyGame
 
 
 	@Override
-	public void dispose() {
+	public void dispose()
+	{
 		batch.dispose();
 		cannon.dispose();
 	}
 
+	@Override
+	public void handleCollision()
+	{
+
+		//check bullets collection and in game boxes collection for any collision
+		for (LinearBox bullet:bullets)
+		{
+
+			for (LinearBox box:boxCollection)
+			{
+
+				if(bullet.collider.overlaps(box.collider))
+				{
+
+					if(bullet.getTile().getValue() == box.getTile().getValue())
+						System.out.println("Call match"); //debug
+					else
+						bullet.movement = new LinearMovement();
+
+				}
+
+			}
+
+		}
+
+	}
 }

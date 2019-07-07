@@ -40,4 +40,9 @@ public  class Box<D> extends GameObject implements Destructable
         tile.dispose();
 
     }
+
+    public Tile getTile()
+    {
+        return tile;
+    }
 }

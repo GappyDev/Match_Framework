@@ -10,10 +10,8 @@ import com.mygdx.game.objects.zuma_objects.Cannon;
 import java.util.ArrayList;
 import java.util.Random;
 
-
 public class Zuma_Factory extends Factory
 {
-
 
     //attributes
     private Random rand;

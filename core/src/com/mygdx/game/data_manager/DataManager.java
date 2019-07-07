@@ -18,7 +18,7 @@ public class DataManager
 
     //GAME CONSTANT VALUES
     public final int amountOfBoxes = 10;
-    public final int distanceBetweenBoxes = -80;
+    public final int distanceBetweenBoxes = -110;
     public final int boxPosY = 450;
     public final int fluctuation = 3; //values of tile
     public Vector2 CannonTip = new Vector2(129.5f,100f);
