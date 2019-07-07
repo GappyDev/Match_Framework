@@ -2,13 +2,14 @@ package com.mygdx.game.matcher;
 
 import com.mygdx.game.objects.GameObject;
 
-public class In_Line extends Matcher
+public class LinearMatch extends Matcher
 {
 
+
     @Override
-    protected Boolean HasMatch()
+    public boolean HasMatch()
     {
-        return null;
+       return false;
     }
 
     @Override

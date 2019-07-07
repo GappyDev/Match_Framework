@@ -9,7 +9,7 @@ import com.mygdx.game.movement.LinearMovement;
 import com.mygdx.game.movement.ProjectileMovement;
 import com.mygdx.game.objects.general_objects.LinearBox;
 import com.mygdx.game.objects.general_objects.Tile;
-import com.mygdx.game.objects.object_Interfaces.CollisionHandler;
+import com.mygdx.game.interfaces.CollisionHandler;
 import com.mygdx.game.objects.zuma_objects.Cannon;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.game.interfaces;
 
 import com.mygdx.game.objects.GameObject;
 

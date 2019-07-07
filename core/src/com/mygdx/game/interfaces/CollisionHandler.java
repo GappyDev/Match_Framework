@@ -1,4 +1,4 @@
-package com.mygdx.game.objects.object_Interfaces;
+package com.mygdx.game.interfaces;
 
 
 public interface CollisionHandler
