@@ -32,9 +32,9 @@ public class Zuma_Factory extends Factory
        return new LinearBox(m,r,l,pos_x,pos_y,dm.tile_width,dm.tile_height);
     }
     @Override
-    public Cannon createCannon(float pos_x, float pos_y, Movement m)
+    public Cannon createCannon(float pos_x, float pos_y)
     {
-        return new Cannon(dm.tempTexture,dm.cannon_width,dm.cannon_height,pos_x,pos_y,m);
+        return new Cannon(dm.tempTexture,dm.cannon_width,dm.cannon_height,pos_x,pos_y);
     }
     @Override
     public Tile createTile(int val)
@@ -90,7 +90,7 @@ public class Zuma_Factory extends Factory
         ArrayList<Tile> gameTiles = new ArrayList<Tile>();
         rand = new Random();
 
-        for(int i = 0; i<dm.amountOfBoxes; i++)
+        for(int i = 0; i<dm.fluctuation; i++)
         {
 
             gameTiles.add(new Tile(rand.nextInt(dm.fluctuation),dm.tile_width,dm.tile_height)); //creates as many random tiles as the amount of boxes in the game
@@ -104,7 +104,7 @@ public class Zuma_Factory extends Factory
 
     public void setGameTilesTextures(ArrayList<Tile> gameTiles)
     {
-        for (int i = 0; i< dm.amountOfBoxes;i++)
+        for (int i = 0; i< gameTiles.size();i++) //verify
         {
 
             switch ((Integer)gameTiles.get(i).getValue())

@@ -1,6 +1,7 @@
 package com.mygdx.game.data_manager;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
@@ -20,6 +21,7 @@ public class DataManager
     public final int distanceBetweenBoxes = -80;
     public final int boxPosY = 450;
     public final int fluctuation = 3; //values of tile
+    public Vector2 CannonTip = new Vector2(129.5f,100f);
 
     //TEXTURES
     public final Texture tempTexture = new Texture("badlogic.jpg");
@@ -31,9 +33,9 @@ public class DataManager
     public void setTileTextures()
     {
 
-        tileTextures.add(tempTexture); //temp texture
-        tileTextures.add(tempTexture2); //temp texture
-        tileTextures.add(tempTexture3); //temp texture
+        tileTextures.add(tempTexture); //temp texture 0
+        tileTextures.add(tempTexture2); //temp texture 1
+        tileTextures.add(tempTexture3); //temp texture 2
         tileTextures.add(tempTexture); //temp texture
         tileTextures.add(tempTexture); //temp texture
         tileTextures.add(tempTexture); //temp texture

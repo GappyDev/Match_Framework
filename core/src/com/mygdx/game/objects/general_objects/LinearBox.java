@@ -9,6 +9,9 @@ import com.mygdx.game.objects.GameObject;
 public class LinearBox extends Box<LinearNeighboors>
 {
 
+    //bullet attributes
+    public boolean remove;
+
     //constructor
     public LinearBox(Movement m, LinearBox r, LinearBox l, float x, float y,float w, float h)
     {

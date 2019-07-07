@@ -13,7 +13,7 @@ public abstract class Factory
 
     protected DataManager dm;
     public abstract LinearBox createLinearBox(Movement m, LinearBox r, LinearBox l, float x, float y);
-    public abstract Cannon createCannon(float x, float y, Movement m);
+    public abstract Cannon createCannon(float x, float y);
     public abstract Tile createTile(int val);
     public abstract ArrayList<LinearBox> generateGameBoxes();
     public abstract ArrayList<Tile> generateGameTiles();
