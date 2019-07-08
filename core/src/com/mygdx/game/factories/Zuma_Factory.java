@@ -1,6 +1,8 @@
 package com.mygdx.game.factories;
 
 import com.mygdx.game.data_manager.DataManager;
+import com.mygdx.game.matcher.LinearMatch;
+import com.mygdx.game.matcher.Matcher;
 import com.mygdx.game.movement.LinearMovement;
 import com.mygdx.game.movement.Movement;
 import com.mygdx.game.objects.general_objects.LinearBox;
@@ -32,13 +34,16 @@ public class Zuma_Factory extends Factory
     @Override
     public Cannon createCannon(float pos_x, float pos_y)
     {
-        return new Cannon(dm.tempTexture,dm.cannon_width,dm.cannon_height,pos_x,pos_y);
+        return new Cannon(dm.frogTexture,dm.cannon_width,dm.cannon_height,pos_x,pos_y);
     }
     @Override
     public Tile createTile(int val)
     {
         return new Tile(val,dm.tile_width,dm.tile_height);
     }
+
+    public Matcher createLinearMatcher(Matcher nextMatch)
+    { return new LinearMatch(null); }
 
     //generate game boxes
     public ArrayList<LinearBox> generateGameBoxes()

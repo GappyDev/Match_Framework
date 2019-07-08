@@ -6,6 +6,7 @@ public class LinearMovement extends Movement
 {
     private final float SPEED = 50f;
 
+
     @Override
     public void move(float deltaTime, GameObject obj)
     {

@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.movement.Movement;
-import com.mygdx.game.objects.GameObject;
 
 public class LinearBox extends Box<LinearNeighbors>
 {
@@ -27,7 +26,7 @@ public class LinearBox extends Box<LinearNeighbors>
         //Neighbors
         this.neighbors = new Neighborhood<LinearNeighbors, LinearBox>();
 
-        this.collider = new Rectangle(x,y,w,h);
+        this.collider = new Rectangle(x,y,50,50);
 
     }
 
@@ -59,11 +58,6 @@ public class LinearBox extends Box<LinearNeighbors>
     }
 
     //methods
-    @Override
-    public void Destroy(GameObject object)
-    {
-
-    }
 
     @Override
     public void draw(SpriteBatch batch)

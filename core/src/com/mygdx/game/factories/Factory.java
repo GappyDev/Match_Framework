@@ -1,6 +1,7 @@
 package com.mygdx.game.factories;
 
 import com.mygdx.game.data_manager.DataManager;
+import com.mygdx.game.matcher.Matcher;
 import com.mygdx.game.movement.Movement;
 import com.mygdx.game.objects.general_objects.LinearBox;
 import com.mygdx.game.objects.general_objects.Tile;
@@ -17,6 +18,7 @@ public abstract class Factory
     public abstract Tile createTile(int val);
     public abstract ArrayList<LinearBox> generateGameBoxes();
     public abstract ArrayList<Tile> generateGameTiles();
+    public abstract Matcher createLinearMatcher(Matcher nextMatch);
 
     //GETTER
     public DataManager getDm()

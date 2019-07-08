@@ -2,8 +2,11 @@ package com.mygdx.game.objects.general_objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.movement.Movement;
 import com.mygdx.game.objects.GameObject;
 import com.mygdx.game.interfaces.Destructable;
+
+import java.util.ArrayList;
 
 public  class Box<D> extends GameObject implements Destructable
 {
@@ -11,18 +14,38 @@ public  class Box<D> extends GameObject implements Destructable
     //Attributes
     Tile tile;
     Neighborhood neighbors;
+    private boolean matchedStatus = false;
 
     //methods
+
+    //getters
+
     public  Box getNeighboor(D direction)
     {
         return neighbors.getBox(direction);
 
     }
 
+    public boolean getMatchedStatus()
+    {
+        return this.matchedStatus;
+    }
+
+    public Neighborhood getNeighbors()
+    {
+
+        return this.neighbors;
+
+    }
+
+    //setters
+
     public void setPosition(float x, float y){this.position = new Vector2(x,y);}
 
+    public void setMatched(boolean bool){this.matchedStatus = bool;}
+
     @Override
-    public void Destroy(GameObject object)
+    public void Destroy(ArrayList<LinearBox> boxes)
     {
         dispose();
     }
@@ -45,4 +68,5 @@ public  class Box<D> extends GameObject implements Destructable
     {
         return tile;
     }
+
 }
