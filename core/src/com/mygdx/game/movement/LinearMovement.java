@@ -4,7 +4,7 @@ import com.mygdx.game.objects.GameObject;
 
 public class LinearMovement extends Movement
 {
-    private final float SPEED = 50f;
+    private final float SPEED = 70f;
 
 
     @Override
@@ -14,4 +14,5 @@ public class LinearMovement extends Movement
         obj.position.add(deltaTime * SPEED,0);
 
     }
+
 }

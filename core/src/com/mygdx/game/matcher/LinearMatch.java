@@ -27,7 +27,6 @@ public class LinearMatch extends Matcher
                 b1.setMatched(true);
                 if(b1.getNeighbors().getBox(LinearNeighbors.Left) != null)HasMatch(b1,b1.getNeighbors().getBox(LinearNeighbors.Left),gameBoxes);
                 if(b1.getNeighbors().getBox(LinearNeighbors.Right)!= null)HasMatch(b1,b1.getNeighbors().getBox(LinearNeighbors.Right),gameBoxes);
-                //System.out.print("added n1 \n");
             }
             if(!b2.getMatchedStatus())
             {
@@ -35,12 +34,14 @@ public class LinearMatch extends Matcher
                 b2.setMatched(true);
                 if(b2.getNeighbors().getBox(LinearNeighbors.Left) != null)HasMatch(b2,b2.getNeighbors().getBox(LinearNeighbors.Left),gameBoxes);
                 if(b2.getNeighbors().getBox(LinearNeighbors.Right)!= null)HasMatch(b2,b2.getNeighbors().getBox(LinearNeighbors.Right),gameBoxes);
-                //System.out.print("added n2\n");
             }
-            if(boxesThatMatched.size()>=3) Destroy(gameBoxes); //destroy a line of three or more boxes
+            if(boxesThatMatched.size()>=1) Destroy(gameBoxes); //destroy a line of three or more boxes(this case >=1 allows match 2)
+            //this covers the fact that bullets don't overlap between them
             return true;
         }
        return false;
+
+
     }
 
     @Override
@@ -49,14 +50,13 @@ public class LinearMatch extends Matcher
         boxesToRemove = new ArrayList<Box>();
         for (Box box:boxesThatMatched)
         {
-
-           // box.Destroy(gameBoxes);
             boxesToRemove.add(box);
         }
         boxesThatMatched.removeAll(boxesToRemove);
 
     }
 
+    @Override
     public void clearMatchedBoxArray() //clears the matcher box collection
     {
         boxesToRemove = new ArrayList<Box>();

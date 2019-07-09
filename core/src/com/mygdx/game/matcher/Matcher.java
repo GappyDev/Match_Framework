@@ -3,11 +3,10 @@ package com.mygdx.game.matcher;
 import com.mygdx.game.interfaces.Destructable;
 import com.mygdx.game.interfaces.MatchHandler;
 import com.mygdx.game.objects.general_objects.Box;
-import com.mygdx.game.objects.general_objects.LinearBox;
 
 import java.util.ArrayList;
 
-public class Matcher implements Destructable, MatchHandler
+public abstract class Matcher implements Destructable, MatchHandler
 {
 
     //Attributes
@@ -24,24 +23,6 @@ public class Matcher implements Destructable, MatchHandler
 
     }
 
-    public void clearMatchedBoxArray()
-    {
-
-    }
-
-    @Override
-    public void Destroy(ArrayList<LinearBox> boxes)
-    {
-
-
-
-    }
-
-
-    @Override
-    public boolean HasMatch(Box b1 , Box b2, ArrayList<LinearBox> boxes)
-    {
-        return false;
-    }
+    public abstract void clearMatchedBoxArray();
 
 }

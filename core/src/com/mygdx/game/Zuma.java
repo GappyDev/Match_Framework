@@ -4,12 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.factories.Zuma_Factory;
 import com.mygdx.game.interfaces.RemoveObjectFromCollection;
 import com.mygdx.game.matcher.Matcher;
+import com.mygdx.game.movement.IdleMovement;
 import com.mygdx.game.movement.LinearMovement;
 import com.mygdx.game.movement.ProjectileMovement;
 import com.mygdx.game.objects.general_objects.*;
@@ -29,7 +32,7 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 	private SpriteBatch batch;
 	private Cannon cannon;
 	private Tile tileDisplay,dis2;
-	private float clockIni = 1f, clock,gclock,gclockIni= 2f;
+	private float clockIni = 1f, clock,gclock,gclockIni= 1.3f;
 	private Matcher gameMatcher;
 	private int index =0;
 	private boolean generateOverTime= false;
@@ -56,6 +59,7 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 			Tile tile = gameTiles.get(rand.nextInt(gameTiles.size()));
 			box.setBoxTile(tile);
 			boxCollection.add(box);
+			resetNeighbors(boxCollection); //fix neighbors every time a box is added to the collection
 
 			gclock = gclockIni;
 
@@ -78,13 +82,25 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 
 	private void shoot(Tile tile)
 	{
-
+		/*to get the correct touch coordinates (touch point) we have to convert it to world coordinates instead of screen coordinates
+		* -> We can do this by creating a Vector3 touchPos, and "disconnect" the touch from the camera  (you'll need one in your project)*/
 		if(Gdx.input.justTouched())
 		{
-			shotEffect.play(0.35f);
-			LinearBox bullet = new LinearBox(new ProjectileMovement(), null, null,width/2 - factory.getDm().tile_width/2, factory.getDm().CannonTip.y, factory.getDm().cannon_width, factory.getDm().cannon_height);
-			bullet.setBoxTile(tile);
-			bullets.add(bullet);
+			//get touch coordinates
+			Vector3 touchPoint = new Vector3();//first create a Vector3
+			cam.unproject(touchPoint.set(Gdx.input.getX(),Gdx.input.getY(),0)); //disconnect touch input from game's camera
+			//from this point touchPos has the correct coordinates of the touch in game world coordinates
+			//which means you've got the position in game world coordinates of the touch received by the user
+			if(touchPoint.y > height/2) //look how i use them below and how they behave inside the ProjectileMovement class
+			{
+				shotEffect.play(0.25f);
+				LinearBox bullet = new LinearBox(new IdleMovement(), null, null,width/2 - factory.getDm().tile_width/2, factory.getDm().CannonTip.y, factory.getDm().cannon_width, factory.getDm().cannon_height);
+				bullet.setBoxTile(tile);
+				bullet.movement = new ProjectileMovement(new Vector2(touchPoint.x,touchPoint.y));
+				bullets.add(bullet);
+
+			}
+
 		}
 	}
 
@@ -138,8 +154,12 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 	@Override
 	public void create()
 	{
-		//game constants
+		//graphics initialization
+		this.cam = new OrthographicCamera();
 		batch = new SpriteBatch();
+		cam.setToOrtho(false,Zuma.width,Zuma.height);
+
+		//game constants
 		factory = new Zuma_Factory();
 		bullets = new ArrayList<LinearBox>();
 
@@ -154,18 +174,18 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 		connectBoxAndTile(boxCollection,gameTiles);
 
 		//create additional game objects
-		cannon = factory.createCannon(width / 2 - factory.getDm().cannon_width / 2, 0);
+		cannon = factory.createCannon(width / 2 - factory.getDm().cannon_width / 2, -20);
 
 		//initialize audio
 		popEffect = Gdx.audio.newSound(Gdx.files.internal("pop.wav"));
 		shotEffect = Gdx.audio.newSound(Gdx.files.internal("yoshitongue.mp3"));
-		gameTheme = Gdx.audio.newMusic(Gdx.files.internal("Uwa so temperate_undertale.mp3"));
+		gameTheme = Gdx.audio.newMusic(Gdx.files.internal("memo.mp3"));
 		gameTheme.setLooping(true);
 		gameTheme.setVolume(0.4f);
 		gameTheme.play();
 
 		//initialize background 
-		background = new Background(new Texture("wall.png"));
+		background = new Background(new Texture("background_Frog.png"));
 
 	}
 
@@ -174,20 +194,22 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 	{
 		Gdx.gl.glClearColor(0, 0, 1, 0.5f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		//fix batch projection matrix
+		batch.setProjectionMatrix(cam.combined);
 		//draw background
 		float delta = Gdx.graphics.getDeltaTime();//get delta Time
 		background.draw(batch); //draw background
 		handleCollision(); //handle collision between bullets and boxes
 		//activate box generation overTime
-		if(boxCollection.get(boxCollection.size()-1).position.x > 0)generateOverTime = true;
-		if(generateOverTime){generateBoxOverTime(delta);resetNeighbors(boxCollection);}
+		if(boxCollection.get(boxCollection.size()-1).position.x >40.5f)generateOverTime = true;
+		if(generateOverTime){generateBoxOverTime(delta);}
 
 		//draw
-		cannon.draw(batch);//cannon
 		changeTileOverTime(delta);//bullet tile display
 		dis2 = tileDisplay;//display tile to shoot
-		dis2.position = new Vector2(width/2 - factory.getDm().tile_width/2,70);
+		dis2.position = new Vector2(width/2 - factory.getDm().tile_width/2,90);
 		dis2.draw(batch);
+		cannon.draw(batch);//cannon
 
 		//Behaviors
 		shoot(tileDisplay);
@@ -237,13 +259,15 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 				{
 
 					bullet.movement = new LinearMovement(); //stop bullet
+					if(bullet.getTile().getValue() == box.getTile().getValue())
+					{
 
-					//System.out.println("Call match"); //debug
-					bullet.setNeighbors(box,(LinearBox) box.getNeighboor(LinearNeighbors.Left));//set bullet neighbors
-					gameMatcher.HasMatch(bullet,bullet.getNeighboor(LinearNeighbors.Right),boxCollection);//call match between bullet and its left neighbor
-					bullet.setNeighbors(box,(LinearBox) box.getNeighboor(LinearNeighbors.Right));//reset bullet neighbors
-					gameMatcher.HasMatch(bullet,bullet.getNeighboor(LinearNeighbors.Left),boxCollection); //call match between bullet and right neighbor
+						bullet.setMatched(true);
+						box.setMatched(true); //allows match 2
+						gameMatcher.HasMatch(box,box.getNeighbor(LinearNeighbors.Right),boxCollection);
+						gameMatcher.HasMatch(box,box.getNeighbor(LinearNeighbors.Left),boxCollection);
 
+					}
 				}
 
 			}
@@ -267,5 +291,6 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 		collection.removeAll(remove);
 
 	}
+
 
 }

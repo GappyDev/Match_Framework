@@ -18,21 +18,18 @@ public  class DataManager
 
     //GAME CONSTANT VALUES
     public final int amountOfBoxes = 10;
-    public final int distanceBetweenBoxes = -110;
+    public final int distanceBetweenBoxes = -95;
     public final int boxPosY = 350;
-    public final int fluctuation = 3; //values of tile
+    public final int fluctuation = 5; //values of tile
     public Vector2 CannonTip = new Vector2(129.5f,100f);
 
     //TEXTURES
-    public final Texture tempTexture = new Texture("badlogic.jpg");
-    public final Texture tempTexture2 = new Texture("bird.png");
-    public final Texture tempTexture3 = new Texture("Logo arbolito.png");
-    public final Texture frogTexture = new Texture("frog.png");
-    public final Texture texture1 = new Texture("gem1.png");
-    public final Texture texture2 = new Texture("gem2.png");
-    public final Texture texture3 = new Texture("gem3.png");
-    public final Texture texture4 = new Texture("gem4.png");
-    public final Texture texture5 = new Texture("gem5.png");
+    public final Texture frogTexture = new Texture("frog_Def.png");
+    public final Texture texture1 = new Texture("gem_A.png");
+    public final Texture texture2 = new Texture("gem_B.png");
+    public final Texture texture3 = new Texture("gem_C.png");
+    public final Texture texture4 = new Texture("gem_D.png");
+    public final Texture texture5 = new Texture("gem_E.png");
     public final ArrayList<Texture> tileTextures = new ArrayList<Texture>();
 
     //SETTING UP TILE TEXTURES

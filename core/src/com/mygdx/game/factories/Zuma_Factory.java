@@ -122,6 +122,12 @@ public class Zuma_Factory extends Factory
                 case 2:
                     gameTiles.get(i).setTexture(dm.tileTextures.get(2));
                     break;
+                case 3:
+                    gameTiles.get(i).setTexture(dm.tileTextures.get(3));
+                    break;
+                case 4:
+                    gameTiles.get(i).setTexture(dm.tileTextures.get(4));
+                    break;
 
             }
 

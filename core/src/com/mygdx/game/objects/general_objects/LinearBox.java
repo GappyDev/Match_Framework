@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.movement.Movement;
 
+
 public class LinearBox extends Box<LinearNeighbors>
 {
 
@@ -12,7 +13,7 @@ public class LinearBox extends Box<LinearNeighbors>
     public boolean remove;
 
     //constructor
-    public LinearBox(Movement m, LinearBox r, LinearBox l, float x, float y,float w, float h)
+    public LinearBox(Movement m, LinearBox r, LinearBox l, float x, float y, float w, float h)
     {
 
         this.movement = m;
@@ -24,7 +25,8 @@ public class LinearBox extends Box<LinearNeighbors>
         this.width = w; this.height = h;
 
         //Neighbors
-        this.neighbors = new Neighborhood<LinearNeighbors, LinearBox>();
+        this.neighbors = new Neighborhood<LinearNeighbors, LinearBox>(); //box collection
+        this.altNeighbors = new Neighborhood<LinearNeighbors,LinearBox>(); //bullets collection
 
         this.collider = new Rectangle(x,y,50,50);
 
