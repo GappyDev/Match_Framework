@@ -24,9 +24,11 @@ public class LinearBox extends Box<LinearNeighbors>
 
         this.width = w; this.height = h;
 
+        //points per Linear box
+        this.points = 10;
+
         //Neighbors
         this.neighbors = new Neighborhood<LinearNeighbors, LinearBox>(); //box collection
-        this.altNeighbors = new Neighborhood<LinearNeighbors,LinearBox>(); //bullets collection
 
         this.collider = new Rectangle(x,y,50,50);
 

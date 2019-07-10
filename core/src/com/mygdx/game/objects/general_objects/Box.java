@@ -11,8 +11,9 @@ public  class Box<D> extends GameObject implements Destructable
 {
 
     //Attributes
-    Tile tile;
-    Neighborhood neighbors,altNeighbors;
+    public Tile tile;
+    public Neighborhood neighbors;
+    public int points;
     private boolean matchedStatus = false;
 
     //methods

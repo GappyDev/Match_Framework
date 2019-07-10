@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -18,6 +19,7 @@ import com.mygdx.game.movement.ProjectileMovement;
 import com.mygdx.game.objects.general_objects.*;
 import com.mygdx.game.interfaces.CollisionHandler;
 import com.mygdx.game.objects.zuma_objects.Cannon;
+import com.mygdx.game.objects.zuma_objects.ScoreZuma;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -42,12 +44,26 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 	private ArrayList<Tile> gameTiles;
 	private ArrayList<LinearBox>bullets;
 
+	//GAME SCORE MANAGER (GSM)
+	private ScoreManager gsm;
+	private int gameScore = 0;
+	private BitmapFont scoreDisplay;
+
 	//Music and sound effects
 	private Music gameTheme;
 	private Sound popEffect;
 	private Sound shotEffect;
 
 	//METHODS
+	private void updateGameScoreDisplay()
+	{
+
+		String s = "SCORE: "+gameScore;
+		batch.begin();
+		scoreDisplay.draw(batch,s,650,30);
+		batch.end();
+	}
+
 
 	private void generateBoxOverTime(float delta)
 	{
@@ -93,7 +109,7 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 			//which means you've got the position in game world coordinates of the touch received by the user
 			if(touchPoint.y > height/2) //look how i use them below and how they behave inside the ProjectileMovement class
 			{
-				shotEffect.play(0.25f);
+				shotEffect.play(0.35f);
 				LinearBox bullet = new LinearBox(new IdleMovement(), null, null,width/2 - factory.getDm().tile_width/2, factory.getDm().CannonTip.y, factory.getDm().cannon_width, factory.getDm().cannon_height);
 				bullet.setBoxTile(tile);
 				bullet.movement = new ProjectileMovement(new Vector2(touchPoint.x,touchPoint.y));
@@ -163,6 +179,9 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 		factory = new Zuma_Factory();
 		bullets = new ArrayList<LinearBox>();
 
+		//gsm
+		gsm = new ScoreZuma();
+
 		//game matcher observer
 		gameMatcher = factory.createLinearMatcher(null);
 
@@ -187,6 +206,9 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 		//initialize background 
 		background = new Background(new Texture("background_Frog.png"));
 
+		//initialize Score display
+		scoreDisplay = new BitmapFont();
+
 	}
 
 	@Override
@@ -199,6 +221,7 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 		//draw background
 		float delta = Gdx.graphics.getDeltaTime();//get delta Time
 		background.draw(batch); //draw background
+		updateGameScoreDisplay();
 		handleCollision(); //handle collision between bullets and boxes
 		//activate box generation overTime
 		if(boxCollection.get(boxCollection.size()-1).position.x >40.5f)generateOverTime = true;
@@ -261,8 +284,9 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 					bullet.movement = new LinearMovement(); //stop bullet
 					if(bullet.getTile().getValue() == box.getTile().getValue())
 					{
-
+						popEffect.play(0.25f);
 						bullet.setMatched(true);
+						gameScore +=box.points;
 						box.setMatched(true); //allows match 2
 						gameMatcher.HasMatch(box,box.getNeighbor(LinearNeighbors.Right),boxCollection);
 						gameMatcher.HasMatch(box,box.getNeighbor(LinearNeighbors.Left),boxCollection);
@@ -272,6 +296,8 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 
 			}
 			gameMatcher.clearMatchedBoxArray();
+			gsm.HandleScore(boxCollection); //manage the score
+			gameScore += gsm.getGameScore(); //add the given points to the game's current score
 			removeFromCollection(boxCollection);//remove matched boxes in the boxes collection
 
 		}
