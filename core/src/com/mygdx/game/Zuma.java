@@ -24,14 +24,13 @@ import com.mygdx.game.objects.zuma_objects.ScoreZuma;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCollection<LinearBox>
+public class Zuma extends MyGame implements  RemoveObjectFromCollection<LinearBox>
 {
 	//GAME DIMENSIONS
 	public static final int width = 800;
 	public static final int height = 450;
 
 	//attributes
-	private SpriteBatch batch;
 	private Cannon cannon;
 	private Tile tileDisplay,dis2;
 	private float clockIni = 1f, clock,gclock,gclockIni= 1.3f;
@@ -45,7 +44,6 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 	private ArrayList<LinearBox>bullets;
 
 	//GAME SCORE MANAGER (GSM)
-	private ScoreManager gsm;
 	private int gameScore = 0;
 	private BitmapFont scoreDisplay;
 
@@ -107,7 +105,7 @@ public class Zuma extends MyGame implements CollisionHandler, RemoveObjectFromCo
 			cam.unproject(touchPoint.set(Gdx.input.getX(),Gdx.input.getY(),0)); //disconnect touch input from game's camera
 			//from this point touchPos has the correct coordinates of the touch in game world coordinates
 			//which means you've got the position in game world coordinates of the touch received by the user
-			if(touchPoint.y > height/2) //look how i use them below and how they behave inside the ProjectileMovement class
+			if(touchPoint.y >= factory.getDm().boxPosY) //look how i use them below and how they behave inside the ProjectileMovement class
 			{
 				shotEffect.play(0.35f);
 				LinearBox bullet = new LinearBox(new IdleMovement(), null, null,width/2 - factory.getDm().tile_width/2, factory.getDm().CannonTip.y, factory.getDm().cannon_width, factory.getDm().cannon_height);
